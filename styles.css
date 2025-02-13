@@ -1,0 +1,110 @@
+body {
+    background-color: rgb(0, 0, 0);
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+ #timer, #results {
+    margin: 20px;
+    padding: 15px;
+    font-size: 35px;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    border: none;
+}
+#word-box {
+    margin: 20px;
+    padding: 15px;
+    font-size: 35px;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    border: none;
+    white-space: nowrap; /* Ensure text stays in a single line */
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#input-box {
+    width: 350px;
+    padding: 15px;
+    font-size: 24px;
+    background-color: black;
+    color: white;
+    border: 2px solid #555;
+    outline: none;
+}
+
+.current-word { color: green; }
+.incorrect { color: red; }
+
+#leaderboard-container {
+    position: fixed;
+    right: -300px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 250px;
+    background-color: black;
+    color: white;
+    padding: 20px;
+    border: 2px solid white;
+    border-radius: 10px;
+    transition: right 0.3s ease-in-out;
+}
+
+#leaderboard { text-align: left; }
+#leaderboard h2 {
+    border-bottom: 2px solid white;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+#toggle-leaderboard {
+    position: fixed;
+    right: -30px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    padding: 10px 15px;
+    font-size: 20px;
+    background-color: #000000;
+    color: white;
+    border: 2px solid rgb(59, 58, 58);
+    cursor: pointer;
+    transition: right 0.3s ease-in-out;
+}
+
+#input-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#retry-button {
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 20px;
+    background-color: #000000;
+    color: white;
+    border: 2px solid rgb(59, 58, 58);
+    cursor: pointer;
+}
+
+#result-text {
+    margin-top: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #ffffff;
+    display: none;
+}

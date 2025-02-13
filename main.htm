@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Typing Test</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div id="content-container">
+        <div id="word-box" style="visibility: hidden;"></div>
+
+        <div id="input-container">
+            <input type="text" id="input-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+            <button id="retry-button" onclick="restartTest()">Retry</button>
+        </div>
+        <br>
+        <div id="timer">60</div>
+        <br>
+        <div>Correct Words: <span id="correct-count">0</span></div>
+        <br>
+        <div>Incorrect Words: <span id="incorrect-count">0</span></div>
+
+        <!-- Result Paragraph (Initially Hidden) -->
+        <p id="result-text" style="display: none;"></p>
+    </div>
+
+    <button id="toggle-leaderboard">Leaderboard</button>
+
+    <div id="leaderboard-container">
+        <div id="leaderboard"></div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
