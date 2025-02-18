@@ -90,7 +90,7 @@ function generateRandomWords(count) {
 
         // Longer words (7-8 characters)
         "elephant", "football", "hospital", "computer", "keyboard", "sunshine", "children", "internet", "airplane", "building",
-        "backpack", "mountain", "magazine", "festival", "strategy", "umbrella", "decision", "sandwich", "favorite", "vacation",
+        "backpack", "mountain", "magazine", "festival", "strategy", "umbrella", "decision", "sandwich", "favourite", "vacation",
 
         // Extra variety
         "business", "chocolate", "motorcycle", "universe", "yesterday", "diameter", "triangle", "landscape", "whisper", "fireworks",
