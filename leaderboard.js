@@ -32,11 +32,9 @@ class RaceTrack {
     constructor(container) {
         this.container = container;
         this.racers = new Map();
-        this.maxWPM = 60; // Start with a more realistic WPM
+        this.maxWPM = 100; // Initial maxWPM
         this.nameOccurrences = new Map();
         this.countdownInterval = null;
-        this.padding = 150; // Padding for racer elements
-        this.finalWPM = null; // Add tracking for final WPM
     }
 
     formatUserName(userId, name) {
@@ -111,33 +109,7 @@ class RaceTrack {
         }, 1000);
     }
 
-    updateMaxWPM(currentWPM, isRaceComplete) {
-        if (isRaceComplete && this.finalWPM === null) {
-            // On race completion, find the highest WPM among all racers
-            let highestWPM = currentWPM;
-            this.racers.forEach((element) => {
-                const wpm = parseInt(element.querySelector('.racer-wpm').textContent);
-                highestWPM = Math.max(highestWPM, wpm);
-            });
-            this.finalWPM = highestWPM;
-            this.maxWPM = highestWPM * 1.1; // Add 10% margin
-        } else if (!isRaceComplete) {
-            // During race, dynamically adjust as before
-            if (currentWPM > this.maxWPM * 0.8) {
-                const newMaxWPM = Math.ceil(currentWPM * 1.2);
-                this.maxWPM = Math.max(this.maxWPM, newMaxWPM);
-            }
-        }
-
-        // Update all racers' positions with current maxWPM
-        this.racers.forEach((element) => {
-            const wpm = parseInt(element.querySelector('.racer-wpm').textContent);
-            const position = (wpm / this.maxWPM) * (this.container.offsetWidth - this.padding);
-            element.style.left = `${position}px`;
-        });
-    }
-
-    updateRacer(userId, userData, isRaceComplete) {
+    updateRacer(userId, userData) {
         if (!this.racers.has(userId)) {
             const racerElement = this.createRacerElement(userData, userId, this.racers.size);
             this.container.appendChild(racerElement);
@@ -145,17 +117,18 @@ class RaceTrack {
         }
 
         const racerElement = this.racers.get(userId);
-        racerElement.querySelector('.racer-wpm').textContent = userData.wpm;
+        // Added padding consideration for smoother positioning
+        const position = (userData.wpm / this.maxWPM) * (this.container.offsetWidth - 150);
+        racerElement.style.left = `${Math.min(position, this.container.offsetWidth - 150)}px`;
 
-        this.updateMaxWPM(userData.wpm, isRaceComplete);
+        // Update WPM display
+        racerElement.querySelector('.racer-wpm').textContent = userData.wpm;
     }
 
     reset() {
         clearInterval(this.countdownInterval);
         this.racers.clear();
         this.nameOccurrences.clear();
-        this.finalWPM = null; // Reset finalWPM
-        this.maxWPM = 60; // Reset to initial value
         this.container.innerHTML = '<div class="finish-line"></div>';
         this.createCountdown();
     }
@@ -240,13 +213,12 @@ function showRaceTrack(roomId) {
         const roomData = snapshot.val();
         if (!roomData || !roomData.users) return;
 
-        const now = Date.now();
-        const isRaceComplete = now > roomData.endTime;
-
+        // Update countdown with all status messages
         raceTrack.updateCountdown(roomData.startTime, roomData.endTime);
 
+
         Object.entries(roomData.users).forEach(([userId, userData]) => {
-            raceTrack.updateRacer(userId, userData, isRaceComplete);
+            raceTrack.updateRacer(userId, userData);
         });
     });
 }
