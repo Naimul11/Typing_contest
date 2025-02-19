@@ -16,7 +16,7 @@ const db = getDatabase(app);
 
 document.getElementById('user-form').addEventListener('submit', async (e) => {
     e.preventDefault();
-    
+
     const userId = document.getElementById('user-id').value;
     const userData = {
         name: document.getElementById('username').value,
@@ -27,7 +27,7 @@ document.getElementById('user-form').addEventListener('submit', async (e) => {
     try {
         await set(ref(db, `users/${userId}`), userData);
         localStorage.setItem('currentUser', JSON.stringify(userData));
-        window.location.href = 'leaderboard.html'; // This page now shows room list
+        window.location.href = 'index.html'; // This page now shows room list
     } catch (error) {
         alert('Error creating user: ' + error.message);
     }
