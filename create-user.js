@@ -12,7 +12,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+const db = getDatabase(app);    
 
 document.getElementById('user-form').addEventListener('submit', async (e) => {
     e.preventDefault();
