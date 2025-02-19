@@ -32,7 +32,7 @@ class RaceTrack {
     constructor(container) {
         this.container = container;
         this.racers = new Map();
-        this.maxWPM = 100; // Initial maxWPM
+        this.maxWPM = 100;
         this.nameOccurrences = new Map();
         this.countdownInterval = null;
     }
@@ -116,13 +116,26 @@ class RaceTrack {
             this.racers.set(userId, racerElement);
         }
 
-        const racerElement = this.racers.get(userId);
-        // Added padding consideration for smoother positioning
-        const position = (userData.wpm / this.maxWPM) * (this.container.offsetWidth - 150);
-        racerElement.style.left = `${Math.min(position, this.container.offsetWidth - 150)}px`;
+        // Check if we need to increase maxWPM
+        if (userData.wpm > this.maxWPM * 0.9) {  // Increase track when someone reaches 90% of max
+            this.maxWPM = Math.ceil(userData.wpm * 1.2);  // Increase by 20%
+            // Update all racers' positions with new maxWPM
+            this.racers.forEach((element, id) => {
+                const racer = element;
+                const racerData = id === userId ? userData : this.racers.get(id)._userData;
+                const position = (racerData.wpm / this.maxWPM) * (this.container.offsetWidth - 150);
+                racer.style.left = `${Math.min(position, this.container.offsetWidth - 150)}px`;
+            });
+        } else {
+            const racerElement = this.racers.get(userId);
+            const position = (userData.wpm / this.maxWPM) * (this.container.offsetWidth - 150);
+            racerElement.style.left = `${Math.min(position, this.container.offsetWidth - 150)}px`;
+        }
 
+        // Store the userData for future reference
+        this.racers.get(userId)._userData = userData;
         // Update WPM display
-        racerElement.querySelector('.racer-wpm').textContent = userData.wpm;
+        this.racers.get(userId).querySelector('.racer-wpm').textContent = userData.wpm;
     }
 
     reset() {
