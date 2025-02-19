@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Typing Contest</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="user-info" class="user-info">
+      <div id="user-avatar" class="avatar"></div>
+      <button id="logout-btn" style="display: none">Logout</button>
+    </div>
+    <div id="content-container">
+      <h1>Typing Contest</h1>
+      <div id="main-menu">
+        <div id="guest-options">
+          <button onclick="window.location.href='create-user.html'">Create User</button>
+          <button onclick="window.location.href='leaderboard.html'">Leaderboard</button>
+        </div>
+        <div id="user-options" style="display: none">
+          <button onclick="window.location.href='create-room.html'">Create Room</button>
+          <button onclick="window.location.href='rooms.html'">Available Rooms</button>
+          <button onclick="window.location.href='leaderboard.html'">Leaderboard</button>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="index.js"></script>
+  </body>
+</html>

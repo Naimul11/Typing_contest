@@ -96,7 +96,7 @@ function generateRandomWords(count) {
         "business", "chocolate", "motorcycle", "universe", "yesterday", "diameter", "triangle", "landscape", "whisper", "fireworks",
         "adventure", "developer", "fantastic", "electric", "concrete", "daughter", "painting", "shoulder", "shopping", "envelope"
     ];
-    
+
     return Array.from({ length: count }, () => wordPool[Math.floor(Math.random() * wordPool.length)]);
 }
 
